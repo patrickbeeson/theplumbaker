@@ -1,0 +1,27 @@
+{% extends "base_inventory.html" %}
+
+{% load cache %}
+
+{% block title %}Baked good types {{ block.super }}{% endblock %}
+
+{% block content_level %}list{% endblock %}
+
+{% block meta_description %}A list of baked good types from The Plum Baker.{% endblock %}
+
+{% block meta_keywords %}baked good types, cookies, cakes, baking, Knoxville, Tennessee{% endblock %}
+
+{% block main_content %}
+	<h2>Baked good types</h2>
+
+	<p>The Plum Baker sells <a href="/baked-goods/">baked goods</a> of the following types:</p>
+
+	<ul id="content_list">
+	{% cache 500 good_type_list %}
+	{% for object in object_list %}
+		<li><a href="{{ object.get_absolute_url }}" title="{{ object.title }}">{{ object.title }}</a></li>
+	{% endfor %}
+	{% endcache %}
+	</ul>
+{% endblock %}
+
+{% block utility_links %}{% endblock %}

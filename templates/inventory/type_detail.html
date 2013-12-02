@@ -1,0 +1,31 @@
+{% extends "base_inventory.html" %}
+
+{% load humanize cache %}
+
+{% block title %}{{ type.title }} {{ block.super }}{% endblock %}
+
+{% block meta_description %}{% if type.description %}{{ type.description }}{% endif %}{% endblock %}
+
+{% block meta_keywords %}{% if type.keywords %}{{ type.keywords }}{% endif %}{% endblock %}
+
+{% block content_level %}detail{% endblock %}
+
+{% block main_content %}
+	<h2>{{ type.title }}</h2>
+
+	{{ type.description_html|safe }}
+
+{% endblock %}
+
+{% block utility_links %}
+<h2>Baked goods for this type</h2>
+
+<ul class="utility_item_list">
+{% cache 500 good_type_list type.title %}
+{% for good in type.good_set.all %}
+	<li><a href="{{ good.get_absolute_url }}" title="{{ good.description }}">{{ good.name }}</a></li>
+{% endfor %}
+{% endcache %}
+</ul>
+
+{% endblock %}

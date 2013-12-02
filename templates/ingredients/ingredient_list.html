@@ -1,0 +1,27 @@
+{% extends "base_ingredients.html" %}
+
+{% load cache %}
+
+{% block title %}Ingredients {{ block.super }}{% endblock %}
+
+{% block content_level %}list{% endblock %}
+
+{% block meta_description %}Ingredient list used in baked goods by The Plum Baker.{% endblock %}
+
+{% block meta_keywords %}ingredients, baked goods, cookies, cakes, The Plum Baker, Knoxville, Tennessee{% endblock %}
+
+{% block main_content %}
+	<h2>Baked good ingredients</h2>
+	
+	<p><a href="/baked-goods/">Baked goods</a> from The Plum Baker use the following ingredients in addition to others that may not be listed here:</p>
+	
+	<ul id="content_list">
+	{% cache 500 ingredient_list %}
+	{% for object in object_list %}
+		<li><a href="{{ object.get_absolute_url }}" title="{{ object.name }}">{{ object.name }}</a></li>
+	{% endfor %}
+	{% endcache %}
+	</ul>
+{% endblock %}
+
+{% block utility_links %}{% endblock %}

@@ -1,0 +1,118 @@
+{% extends "base_inventory.html" %}
+
+{% load humanize images cache %}
+
+{% block title %}{{ good.name }} {{ block.super }}{% endblock %}
+
+{% block meta_description %}{{ good.description_html|striptags }}{% endblock %}
+
+{% block meta_keywords %}{% if good.keywords %}{{ good.keywords }}{% endif %}{% endblock %}
+
+{% block facebook_meta_data %}
+<meta property="og:title" content="{{ good.name }}"/>
+<meta property="og:site_name" content="theplumbaker.com"/>
+{% if good.lead_photo %}<meta property="og:image" content="{{ good.lead_photo.photo|thumbnail:"520x500" }}"/>{% endif %}
+<meta property="og:type" content="food" />
+<meta property="og:url" content="http://theplumbaker.com{{ good.get_absolute_url }}"/>
+<meta property="og:description" content="{{ good.description_html|striptags }}"/>
+<meta property="fb:admins" content="500460979, 27403640"/>
+<meta property="og:email" content="lindsay@theplumbaker.com"/>
+<meta property="fb:app_id" content="122417281126639" />
+{% endblock %}
+
+{% block content_level %}detail{% endblock %}
+
+{% block main_content %}
+	{% if not good.is_available %}<p class="alert">This baked good is not available currently.</p>{% endif %}
+
+	<h2>{{ good.name }} {% if good.is_seasonal %}<span id="seasonal">(Seasonal)</span>{% endif %}</h2>
+
+	{% if good.lead_photo %}
+	<div id="lead_photo">
+		<img src="{{ good.lead_photo.photo|thumbnail:"520x500" }}" alt="{{ good.lead_photo.caption }}">
+		<p class="photo_credit">Photo by: {% if good.lead_photo.credit_link %}<a href="{{ good.lead_photo.credit_link }}" title="{{ good.lead_photo.credit }}'s Web site">{{ good.lead_photo.credit }}</a>{% else %}{{ good.lead_photo.credit }}{% endif %}</p>
+		<p class="photo_caption">{{ good.lead_photo.caption_html|safe }}</p>
+	</div>
+	{% endif %}
+
+	{{ good.description_html|safe }}
+	
+	{% if good.google_checkout_html %}{{ good.google_checkout_html|safe }}{% endif %}
+	
+	<h3>Ingredients</h3>
+	
+	<p>The {{ good.ingredients.count|apnumber }} ingredient{{ good.ingredients.count|pluralize }} for the {{ good.name }} include:
+	{% cache 500 ingredients_in_good good.id %}
+	{% for ingredient in good.ingredients.all %}
+	<a href="{{ ingredient.get_absolute_url }}" title="{{ ingredient.description }}">{{ ingredient.name }}</a>
+	{% if forloop.last %}{% else %}
+	{% ifequal forloop.revcounter0 1 %}and {% else %},{% endifequal %}
+	{% endif %}
+	{% endfor %}
+	{% endcache %}.
+	</p>
+	
+	<p class="note"><em>Note: Baked goods may include additional ingredients such as salt or baking powder not listed here.</em></p>
+	
+	{% if good.portion_set.all %}
+	<h3>Sizes and nutritional information</h3>
+	
+	<dl id="good_detail_list">
+	{% cache 500 portions_for_good good.id %}
+	{% for good in good.portion_set.all %}
+		<dt class="size">Portion size: {{ good.get_portion_type_display }}</dt>
+		<dd class="quantity">Quantity: {% ifequal good.quantity 12 %}Dozen{% else %}{{ good.quantity }}{% endifequal %}</dd>
+		{% if good.nutritional_information %}<dd class="nutrition details">Nutrition details: {{ good.nutritional_information_html|safe }}</dd>{% endif %}
+		<dd class="cost">Cost: ${{ good.cost }}</dd>
+	{% endfor %}
+	{% endcache %}	
+	</dl>
+	{% endif %}
+	
+	<fb:like show_faces="false" width="520" font="helvetica" autologoutlink="true"></fb:like>
+{% endblock %}
+
+{% block utility_links %}
+	<h2>Where you can buy this item</h2>
+	{% if good.where_to_buy.count %}
+	<ul class="utility_item_list">
+	{% cache 500 good_location_list good.id %}
+	{% for location in good.where_to_buy.all %}
+	{% ifequal location.is_current_vendor 1 %}
+		<li><a href="{{ location.get_absolute_url }}" title="{{ location.description }}">{{ location.name }}</a></li>
+	{% endifequal %}
+	{% endfor %}
+	{% endcache %}
+	</ul>
+	{% else %}<ul class="utility_item_list"><li>By request only</li></ul>{% endif %}
+	
+	<h2>Related baked goods</h2>
+	
+	<ul class="utility_item_list">
+	{% cache 500 related_good_list good.id %}
+	{% for good in good.good_type.good_set.all %}
+		<li><a href="{{ good.get_absolute_url }}" title="{{ good.description }}">{{ good.name }}</a></li>
+	{% endfor %}
+	{% endcache %}
+	</ul>
+	
+{% endblock %}
+
+{% block google_checkout_javascript %}{% if good.google_checkout_javascript %}{{ good.google_checkout_javascript|safe }}{% endif %}{% endblock %}
+{% block facebook_js_sdk %}
+<div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({appId: '122417281126639', status: true, cookie: true,
+                 xfbml: true});
+      };
+      (function() {
+        var e = document.createElement('script');
+        e.type = 'text/javascript';
+        e.src = document.location.protocol +
+          '//connect.facebook.net/en_US/all.js';
+        e.async = true;
+        document.getElementById('fb-root').appendChild(e);
+      }());
+    </script>
+{% endblock %}

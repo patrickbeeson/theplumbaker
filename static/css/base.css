@@ -1,0 +1,251 @@
+/* The Plum Baker CSS */
+/* Designer: Patrick Beeson */
+/* Copyright 2009 */
+
+body {
+background: #E7E3E0;
+font-family: Helvetica;
+font-size: 14px;
+line-height: 18px;
+border-top: 9px solid #939588;
+}
+
+p, ul, ol { 
+margin-bottom: 18px; 
+}
+
+ul {
+/* list-style-type: square; */
+margin-left: 20px;
+}
+
+.highlight {
+background: #ffffcc;
+}
+
+a {
+color: #8a7c8b;
+text-decoration: none;
+font-weight: bold;
+}
+
+a:hover {
+text-decoration: none;
+}
+
+h1 { 
+font-size: 24px; 
+line-height: 36px;
+margin-bottom: 18px;
+}
+
+h2 {
+/* color: #8a7c8b; */
+font-size: 18px; 
+line-height: 18px; 
+margin-bottom: 18px;
+text-transform: uppercase;
+font-weight: normal;
+}
+
+h3 {
+font-size: 12px; 
+line-height: 18px;
+text-transform: uppercase; 
+}
+
+h4 {
+font-weight: normal;
+}
+
+#wrap {
+margin-top: 3px;
+background: #fff;
+position: relative;
+width: 960px;
+margin: 0 auto;
+padding-top: 18px;
+z-index: 0;
+}
+
+#content {
+overflow: hidden;
+position: relative;
+bottom: 108px;
+}
+
+#navigation {
+background: #f4f2f3;
+position: relative;
+bottom: 144px;
+padding: 18px;
+opacity: 0.5;
+filter: alpha(opacity=50);
+z-index: 10;
+}
+
+#navigation ul {
+list-style: none;
+margin-left: 0;
+text-align: right;
+margin-bottom: 0;
+margin-right: 10px;
+}
+
+#navigation li {
+display: inline;
+color: #8a7c8b;
+margin: 0 10px;
+text-transform: uppercase;
+font-weight: bold;
+}
+
+#navigation a {
+text-decoration: none;
+}
+
+#branding {
+text-align: left;
+margin: 25px 0 0 25px;
+overflow: hidden;
+position: relative;
+right: 50px;
+width: 350px;
+}
+
+#branding h1 {
+background: url(http://media.theplumbaker.com/theplumbaker/images/plum_baker_logo.png) no-repeat;
+margin-bottom: 9px;
+height: 221px;
+position: relative;
+z-index: 20;
+}
+
+#branding h1 a {
+text-indent: -9999px;
+width: 350px;
+height: 221px;
+position: absolute;
+}
+
+#main_content {
+float: right;
+width: 520px;
+margin: 0 20px 0 20px;
+}
+
+#main_content a {
+background: #fff;
+}
+
+#main_content h2 {
+font-size: 14px;
+}
+
+dl {
+margin-left: 20px;
+}
+
+.cost {
+margin-bottom: 18px;
+}
+
+#lead_photo {
+
+}
+
+#lead_photo img {
+
+}
+
+#lead_photo p {
+/* color: #b3a6a5; */
+font-style: italic;
+}
+
+#lead_photo .photo_credit {
+font-size: 12px;
+font-style: normal;
+text-align: right;
+}
+
+#utility_links {
+float: left;
+width: 360px;
+color: #b3a6a5;
+margin: 72px 20px 0 20px;
+/* border-bottom: 1px solid #E7E3E0; */
+}
+
+#social_links, #release_details {
+margin-left: 0;
+}
+
+#social_links li, #release_details li {
+border-bottom: 1px solid #E7E3E0;
+padding-bottom: 8px;
+margin-bottom: 9px;
+}
+
+#utility_links .utility_item_list {
+border-bottom: 1px solid #E7E3E0;
+padding-bottom: 8px;
+}
+
+#utility_links h2 {
+font-weight: normal;
+font-size: 14px; 
+color: #000;
+}
+
+#contactform label {
+float: left;
+}
+
+#id_name, #id_email, #id_body {
+float: right;
+}
+
+#id_name, #id_email {
+width: 330px;
+}
+
+#submit_comment {
+text-align: right;
+padding-top: 5px;
+}
+
+#contactform p {
+clear: both;
+overflow: hidden;
+margin-bottom: 14px;
+}
+
+#contactform select, #contactform input[type="text"], #contactform textarea {
+border-top: 2px solid #999;
+border-left: 2px solid #999;
+border-bottom: 1px solid #ccc;
+border-right: 1px solid #ccc;
+background: #f1f2f3;
+}
+
+#contactform select:focus, #contactform input:focus, #contactform textarea:focus {
+background: #ffc;
+}
+
+#site_info {
+clear: both;
+margin-bottom: 18px;
+}
+
+#site_info p {
+color: #b3a6a5;
+padding: 18px 0 0 40px;
+width: 960px;
+margin: 0 auto;
+}
+
+#current_vendor {
+background: #ffc;
+font-weight: bold;
+}

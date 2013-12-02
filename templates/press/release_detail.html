@@ -1,0 +1,75 @@
+{% extends "base_press.html" %}
+
+{% load humanize images markup cache %}
+
+{% block title %}{{ release.headline }} {{ block.super }}{% endblock %}
+
+{% block content_level %}detail{% endblock %}
+
+{% block meta_description %}{% if release.meta_description %}{{ release.description }}{% else %}{{ block.super }}{% endif %}{% endblock %}
+
+{% block meta_keywords %}{% if release.keywords %}{{ release.keywords }}{% endif %}{% endblock %}
+
+{% block facebook_meta_data %}
+<meta property="og:title" content="{{ release.headline }}"/>
+<meta property="og:site_name" content="theplumbaker.com"/>
+{% if release.lead_photo %}<meta property="og:image" content="{{ release.lead_photo.photo|thumbnail:"520x500" }}"/>{% endif %}
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://theplumbaker.com{{ release.get_absolute_url }}"/>
+<meta property="og:description" content="{{ release.description }}"/>
+<meta property="fb:admins" content="500460979, 27403640"/>
+<meta property="fb:app_id" content="122417281126639" />
+{% endblock %}
+
+{% block main_content %}
+	<h2>{{ release.headline }}</h2>
+	
+	{% if release.lead_photo %}
+	<div id="lead_photo">
+		<img src="{{ release.lead_photo.photo|thumbnail:"520x500" }}" alt="{{ release.lead_photo.caption }}">
+		<p>{{ release.lead_photo.caption }}</p>
+	</div>
+	{% endif %}
+	
+	{{ release.body|markdown }}
+
+	<fb:like show_faces="false" width="520" font="helvetica" autologoutlink="true"></fb:like>
+	
+{% endblock %}
+
+{% block utility_links %}
+	
+	<ul id="release_details">
+		<li>Release published: {{ release.pub_date|date:"N j, Y" }} at {{ release.pub_date|date:"g:i a" }}</li>
+		<li>Author: <a href="mailto:{{ release.author.email }}">{{ release.author.first_name }} {{ release.author.last_name }}</a></li>
+		<li>Category: {{ release.category }}</li>
+	</ul>
+
+	<h2>Related press releases</h2>
+	
+	<ul class="utility_item_list">
+	{% cache 500 releases_for_category release.slug %}
+	{% for release in release.category.live_release_set %}
+		<li><a href="{{ release.get_absolute_url }}" title="{{ release.headline }}">{{ release.headline }}</a></li>
+	{% endfor %}
+	{% endcache %}
+	</ul>
+
+{% endblock %}
+{% block facebook_js_sdk %}
+<div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({appId: '122417281126639', status: true, cookie: true,
+                 xfbml: true});
+      };
+      (function() {
+        var e = document.createElement('script');
+        e.type = 'text/javascript';
+        e.src = document.location.protocol +
+          '//connect.facebook.net/en_US/all.js';
+        e.async = true;
+        document.getElementById('fb-root').appendChild(e);
+      }());
+    </script>
+{% endblock %}

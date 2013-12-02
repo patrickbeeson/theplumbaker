@@ -1,0 +1,4 @@
+{% for item in feed.entries|slice:"1" %}
+	<p>{{ item.description|safe }}</p>
+{% endfor %}
+

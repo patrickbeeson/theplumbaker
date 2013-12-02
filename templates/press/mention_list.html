@@ -1,0 +1,32 @@
+{% extends "base_press.html" %}
+
+{% load cache %}
+
+{% block title %}Press mentions {{ block.super }}{% endblock %}
+
+{% block content_level %}list{% endblock %}
+
+{% block meta_description %}Media outlets that mention The Plum Baker.{% endblock %}
+
+{% block meta_keywords %}press, mentions, media, blogs, newspapers{% endblock %}
+
+{% block main_content %}
+<h2>Press mentions</h2>
+
+<p>The Plum Baker has been mentioned in the following media:</p>
+{% cache 500 mentions %}
+{% regroup mention_list|dictsort:"publication_type" by publication_type as type_list %}
+<ul id="content_list">
+	{% for publication_type in type_list %}
+	<li class="content_list_header"><strong>{{ publication_type.grouper|title }}s</strong></li>
+		<ul>
+		{% for mention in publication_type.list %}
+			<li>{{ mention.publication_name }}: <a href="{{ mention.link }}" title="{{ mention.title }}">{{ mention.mention_title }}</a></li>
+		{% endfor %}
+		</ul>
+	{% endfor %}
+</ul>
+{% endcache %}
+{% endblock %}
+
+{% block utility_links %}{% endblock %}

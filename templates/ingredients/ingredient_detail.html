@@ -1,0 +1,50 @@
+{% extends "base_ingredients.html" %}
+
+{% load humanize cache %}
+
+{% block title %}{{ ingredient.name }} {{ block.super }}{% endblock %}
+
+{% block content_level %}detail{% endblock %}
+
+{% block meta_description %}{% if ingredient.meta_description %}{{ ingredient.description }}{% else %}{{ block.super }}{% endif %}{% endblock %}
+
+{% block meta_keywords %}{% if ingredient.keywords %}{{ ingredient.keywords }}{% endif %}{% endblock %}
+
+{% block main_content %}
+	<h2>{{ ingredient.name }}</h2>
+
+	{% if ingredient.lead_image %}
+	<div id="lead_photo">
+		<img src="http://media.theplumbaker.com/{{ ingredient.lead_photo }}" width="{{ ingredient.lead_photo.photo_width}}" height="{{ ingredient.lead_photo.photo_height }}" alt="{{ ingredient.lead_photo.caption }}">
+		<p>{{ ingredient.lead_photo.caption }}</p>
+	</div>
+	{% endif %}
+	
+	{{ ingredient.description_html|safe }}
+	
+	{% if ingredient.related_links.all %}
+	<h3>Related links</h3>
+	
+	<ul>
+	{% cache 500 ingredient_related_links ingredient.name %}
+	{% for relatedlink in ingredient.related_links.all %}
+	<li><a href="{{ relatedlink.url }}" title="{{ relatedlink.title }}">{{ relatedlink.title }}</a></li>
+	{% endfor %}
+	{% endcache %}
+	</ul>
+	{% endif %}
+	
+{% endblock %}
+
+{% block utility_links %}
+<h2>Baked goods using this ingredient</h2>
+	<ul class="utility_item_list">
+	{% cache 500 goods_for_ingredient_list %}
+	{% for good in ingredient.good_set.all %}
+		<li><a href="{{ good.get_absolute_url }}" title="{{ good.description }}">{{ good.name }}</a></li>
+	{% endfor %}
+	{% endcache %}
+	</ul>
+
+
+{% endblock %}

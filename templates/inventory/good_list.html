@@ -1,0 +1,50 @@
+{% extends "base_inventory.html" %}
+
+{% load cache types %}
+
+{% block title %}Baked goods {{ block.super }}{% endblock %}
+
+{% block content_level %}list{% endblock %}
+
+{% block main_content %}
+<h2>Baked goods</h2>
+
+<p>The Plum Baker sells the following baked goods:</p>
+{% cache 500 goodlist %}
+{% regroup object_list|dictsort:"good_type.title" by good_type as type_list %}
+<ul id="content_list">
+	{% for good_type in type_list %}
+	<li class="content_list_header"><strong>{{ good_type.grouper }}</strong></li>
+		<ul>
+		{% for object in good_type.list %}
+			<li><a href="{{ object.get_absolute_url }}" title="{{ object.name }}">{{ object.name }}</a></li>
+		{% endfor %}
+		</ul>
+	{% endfor %}
+</ul>
+{% endcache %}
+
+{% comment %}
+<ul id="content_list">
+{% cache 500 good_list %}
+{% for object in object_list %}
+	<li><a href="{{ object.get_absolute_url }}" title="{{ object.description }}">{{ object.name }}</a></li>
+{% endfor %}
+{% endcache %}
+</ul>
+{% endcomment %}
+{% endblock %}
+
+{% block utility_links %}
+<h2>Baked-good types</h2>
+
+<ul class="utility_item_list">
+{% cache 500 goodtype_list %}
+{% get_goodtypes_list as type_list %}
+{% for type in type_list %}
+	<li><a href="{{ type.get_absolute_url }}" title="{{ type.title }}">{{ type.title }}</a></li>
+{% endfor %}
+{% endcache %}
+</ul>
+
+{% endblock %}

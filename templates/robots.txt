@@ -1,0 +1,5 @@
+# /robots.txt file for http://theplumbaker.com/
+# Contact patrickbeeson@gmail.com
+
+User-agent: *
+Disallow: /r/

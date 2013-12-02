@@ -1,0 +1,35 @@
+{% extends "base_contact.html" %}
+
+{% block  title %}Send The Plum Baker a message{{ block.super }}{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="http://media.patrickbeeson.com/js/addLoadEvent.js"></script>	
+<script type="text/javascript" src="http://media.patrickbeeson.com/js/contactForm.js"></script>
+{% endblock %}
+
+{% block content_level %}detail{% endblock %}
+
+{% block main_content %}
+	<h2>Contact</h2>
+
+	<p>You can contact Lindsay at lindsaybeeson(at)gmail(dot)com</p>
+
+	{% comment %}
+	<p>Use this form to send Lindsay a message.</p>
+
+	<form method="post" action="" id="contactform">
+		{{ form.as_p }}
+		<p id="submit_comment"><input type="submit" value="Send message" /></p>
+	</form>
+	{% endcomment %}
+{% endblock %}
+
+{% block utility_links %}
+<h2>Other content methods</h2>
+	<ul class="utility_item_list">
+		<li><a href="http://twitter.com/theplumbaker">Twitter</a></li>
+		<li><a href="http://www.facebook.com/pages/Knoxville-TN/The-Plum-Baker/80096613482">Facebook</a></li>
+		<li><a href="mailto:lindsay@theplumbaker.com">E-mail</a></li>
+	</ul>
+
+{% endblock %}

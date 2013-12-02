@@ -1,0 +1,37 @@
+{% extends "base_press.html" %}
+
+{% load cache %}
+
+{% block title %}Press releases {{ block.super }}{% endblock %}
+
+{% block content_level %}list{% endblock %}
+
+{% block meta_description %}News releases and official announcements from The Plum Baker.{% endblock %}
+
+{% block meta_keywords %}news, press release, announcements, The Plum Baker{% endblock %}
+
+{% block main_content %}
+<h2>Press releases</h2>
+
+{% if object_list %}
+<p>The Plum Baker has published the following press releases:</p>
+{% cache 500 release_list %}
+{% regroup object_list by pub_date|date:"F" as month_list %}
+<ul id="content_list">
+	{% for month in month_list %}
+	<li class="content_list_header"><strong>{{ month.grouper }}</strong></li>
+		<ul>
+		{% for object in month.list %}
+			<li><a href="{{ object.get_absolute_url }}" title="{{ object.headline }}">{{ object.headline }}</a></li>
+		{% endfor %}
+		</ul>
+	{% endfor %}
+</ul>
+{% endcache %}
+{% else %}
+<p>There are no press releases available.</p>
+{% endif %}
+
+{% endblock %}
+
+{% block utility_links %}{% endblock %}

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="description" content="{% block meta_description %}The Plum Baker. Simple, delectable baked goods by Lindsay Beeson in Knoxville, TN.{% endblock %}">
+		<meta name="keywords" content="{% block meta_keywords %}The Plum Baker, baked goods, cookies, cakes, Knoxville, Tennessee, TN, Old City, Etsy, Lindsay Beeson{% endblock %}">
+		
+		{% block facebook_meta_data %}
+		<meta property="fb:admins" content="27403640,500460979" />
+		<meta property="fb:page_id" content="80096613482" />
+		{% endblock %}
+		
+		{% block google_webmasters %}
+		<meta name="google-site-verification" content="hPNXQy2QuUpz0HUZEpmNs1kVsGCqhWsA2_JSSSdv_hE">
+		{% endblock %}
+		
+		<link rel="icon" href="http://media.theplumbaker.com/theplumbaker/images/favicon.ico" type="image/x-icon">
+		
+		{% block css %}<link rel="stylesheet" href="http://media.theplumbaker.com/theplumbaker/css/styles.css" type="text/css" media="screen">{% endblock %}
+		
+		{% block javascript %}{% endblock %}
+		
+		{% block meta_robots %}{% endblock %}
+		
+		<title>{% block title %}{% endblock %}</title>
+		
+	</head>
+	<body id="{% block page_type %}{% endblock %}" class="{% block content_level %}{% endblock %}" {% block map_load %}{% endblock %}>
+	
+		<div id="wrap"><!--Begin wrap-->
+			{% comment %}
+			{% load feeds %}
+			<div id="update">
+				{% include_feed "http://twitter.com/statuses/user_timeline/38958796.rss" 1 feed_includes/twitter_update.html %}
+			</div>
+			{% endcomment %}
+			<div id="branding"><!--Begin branding-->
+				<h1><a href="/" title="The Plum Baker">The Plum Baker</a></h1>
+			</div><!--End branding-->
+			
+			<div id="navigation">
+				<ul>
+					<li><a href="/about/" title="About The Plum Baker">About</a></li>
+					<li><a href="/baked-goods/" title="View the baked goods">Goods</a></li>
+					<li><a href="/locations/" title="Where to buy goods from The Plum Baker">Where to buy</a></li>
+					<li><a href="/press/" title="Press releases from The Plum Baker">News</a></li>
+					<li><a href="/press/mentions/" title="Media mentions for The Plum Baker">Press</a></li>
+					<li><a href="/contact/" title="Contact The Plum Baker">Contact</a></li>
+				</ul>
+			</div>
+			
+			<div id="content"><!--Begin content-->
+				<div id="main_content"><!--Begin main_content-->
+					{% block main_content %}{% endblock %}
+				</div><!--End main_content-->
+				
+				<div id="utility_links"><!--Begin utility_links-->
+					{% block utility_links %}
+					<ul id="social_links">
+						<li><a href="http://twitter.com/theplumbaker" title="The Plum Baker on Twitter">Twitter</a></li>
+						<li><a href="http://www.facebook.com/pages/Knoxville-TN/The-Plum-Baker/80096613482" title="The Plum Baker on Facebook">Facebook</a></li>
+					</ul>
+					{% endblock %}
+				</div><!--End utility_links-->
+			</div><!--End content-->
+		
+		</div><!--End wrap-->
+		
+		<div id="site_info"><!--Begin site_info-->
+			<p>Copyright &copy; {% now "Y" %} <a href="http://lindsaybeeson.com">Lindsay Beeson</a>, aka The Plum Baker. All rights reserved.</p>
+		</div><!--End site_info-->
+		
+	{% block google_analytics %}
+	<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-207270-8");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+	{% endblock %}
+	
+	{% block google_checkout_javascript %}{% endblock %}
+	{% block facebook_js_sdk %}{% endblock %}
+	</body>
+</html>
+

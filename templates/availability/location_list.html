@@ -1,0 +1,27 @@
+{% extends "base_availability.html" %}
+
+{% load cache %}
+
+{% block title %}Where to find baked goods from The Plum Baker {{ block.super }}{% endblock %}
+
+{% block content_level %}list{% endblock %}
+
+{% block meta_description %}Locations selling baked goods from The Plum Baker.{% endblock %}
+
+{% block meta_keywords %}stores, retail, web, availability, locations, baked goods, cookies, cakes, The Plum Baker, Knoxville, Tennessee{% endblock %}
+
+{% block main_content %}
+	<h2>Locations</h2>
+	
+	<p><a href="/baked-goods/">Baked goods</a> from The Plum Baker can be found at the following locations:</p>
+
+	<ul id="content_list">
+	{% cache 500 location_list %}
+	{% for object in object_list %}
+		<li><a href="{{ object.get_absolute_url }}" title="{{ object.name }}">{{ object.name }}</a></li>
+	{% endfor %}
+	{% endcache %}
+	</ul>
+{% endblock %}
+
+{% block utility_links %}{% endblock %}
